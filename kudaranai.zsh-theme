@@ -28,10 +28,10 @@ ZSH_THEME_GIT_PROMPT_SHA_BEFORE="%{$fg_bold[yellow]%}"
 ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$reset_color%}"
 
 function theme_prompt_status() {
-	RETVAL=$?
+	local exit_code=$?
 	local -a symbols
 
-	[[ $RETVAL -ne 0 ]] && symbols+="%{$fg_bold[red]%}×"
+	[[ $exit_code -ne 0 ]] && symbols+="%{$fg_bold[red]%}×"
 	[[ $UID -eq 0 ]] && symbols+="%{$fg_bold[yellow]%}⚡"
 	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg_bold[cyan]%}☼"
 
