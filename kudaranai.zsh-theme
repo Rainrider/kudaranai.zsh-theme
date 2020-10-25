@@ -2,7 +2,7 @@
 
 KU_SEPARATOR="%{$fg[white]%}く%{$reset_color%}"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="${KU_SEPARATOR} %{$fg[magenta]%}git:\uE0A0 "
+ZSH_THEME_GIT_PROMPT_PREFIX="${KU_SEPARATOR} %{$fg[magenta]%}git:"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
 # status compared to remote
@@ -140,8 +140,21 @@ function prompt_char() {
   echo "%{$fg[red]%}❯%{$reset_color%}%{$fg[yellow]%}❯%{$reset_color%}%{$fg[green]%}❯%{$reset_color%}"
 }
 
+function git_prompt_info() {
+  local ref
+  ref=$(__git_prompt_git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return 0
+
+  local symbol
+  if [[ -n "$(__git_prompt_git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null)" ]]; then
+    symbol="\uE0A0 "
+  fi
+
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${symbol}${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
 function theme_git_prompt() {
-  echo "$(git_prompt_info) $(custom_git_prompt_status)"
+  echo "$(git_prompt_info) $(git_prompt_remote) $(custom_git_prompt_status)"
 }
 
 
