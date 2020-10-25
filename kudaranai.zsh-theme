@@ -156,7 +156,7 @@ function theme_git_info() {
 }
 
 function theme_git_prompt() {
-	echo "$(theme_git_info) $(git_prompt_remote) $(theme_git_status)"
+	echo "$(theme_git_info) $(git_prompt_remote)$(theme_git_status)"
 }
 
 
