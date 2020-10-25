@@ -139,7 +139,7 @@ function theme_git_status() {
 }
 
 function theme_prompt_char() {
-	echo "%{$fg[red]%}❯%{$reset_color%}%{$fg[yellow]%}❯%{$reset_color%}%{$fg[green]%}❯%{$reset_color%}"
+	echo "%{$fg[red]%}❯%{$fg[yellow]%}❯%{$fg[green]%}❯%{$reset_color%}"
 }
 
 function theme_git_info() {
