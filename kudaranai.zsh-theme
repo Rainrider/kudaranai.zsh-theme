@@ -38,7 +38,7 @@ function theme_prompt_status() {
 	[[ -n "$symbols" ]] && echo "$symbols%{$reset_color%} "
 }
 
-function custom_git_prompt_status() {
+function theme_git_status() {
 	[[ "$(__git_prompt_git config --get oh-my-zsh.hide-status 2>/dev/null)" = 1 ]] && return
 
 	# Maps a git status prefix to an internal constant
@@ -138,11 +138,11 @@ function custom_git_prompt_status() {
 	echo $status_prompt
 }
 
-function prompt_char() {
+function theme_prompt_char() {
 	echo "%{$fg[red]%}❯%{$reset_color%}%{$fg[yellow]%}❯%{$reset_color%}%{$fg[green]%}❯%{$reset_color%}"
 }
 
-function git_prompt_info() {
+function theme_git_info() {
 	local ref
 	ref=$(__git_prompt_git symbolic-ref HEAD 2> /dev/null) || \
 	ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return 0
@@ -156,12 +156,12 @@ function git_prompt_info() {
 }
 
 function theme_git_prompt() {
-	echo "$(git_prompt_info) $(git_prompt_remote) $(custom_git_prompt_status)"
+	echo "$(theme_git_info) $(git_prompt_remote) $(theme_git_status)"
 }
 
 
 PROMPT='
 $(theme_prompt_status)%{$fg[green]%}%m%{$reset_color%} ${KU_SEPARATOR} %{$fg[red]%}%(5~|%-1~/…/%3~|%4~)%{$reset_color%} $(theme_git_prompt)
-$(prompt_char) '
+$(theme_prompt_char) '
 
 RPROMPT=''
